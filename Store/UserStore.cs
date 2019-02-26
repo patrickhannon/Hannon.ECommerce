@@ -97,7 +97,14 @@ namespace ECommerce
             return Task.Factory.StartNew(() =>
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
-                    connection.Execute("update Users set UserName = @userName, PasswordHash = @passwordHash, SecurityStamp = @securityStamp where UserId = @userId", user);
+                    connection.Execute(@"
+                            update Users 
+                            set UserName = @userName, 
+                                PasswordHash = @passwordHash, 
+                                SecurityStamp = @securityStamp,
+                                UtcDateExpire = @utcDateExpire,
+                                Verified = @verified
+                            where UserId = @userId", user);
             });
         }
         #endregion

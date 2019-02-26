@@ -4,25 +4,24 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>TwoFactor</h2>
 @using (Html.BeginForm("TwoFactor", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Send Two Factor Authentication.</h4>
+    <h4>Select Provider for Verification code.</h4>
     <hr />
-    <div class="form-group">
-        @Html.RadioButton("Provider", "Email")
-        @Html.LabelFor(m => m.CellPhone, new { @class = "col-md-2 control-label" })
-        @Html.DisplayName(Model.CellPhone)
-    </div>
     <div class="form-group">
         @Html.RadioButton("Provider", "Email")
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
         @Html.DisplayName(Model.Email)
     </div>
     <div class="form-group">
+        @Html.RadioButton("Provider", "CellPhone")
+        @Html.LabelFor(m => m.CellPhone, new { @class = "col-md-2 control-label" })
+        @Html.DisplayName(Model.CellPhone)
+    </div>
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Send Code" />
+            <input type="submit" class="btn btn-default" value="Verify Code" />
         </div>
     </div>
 }

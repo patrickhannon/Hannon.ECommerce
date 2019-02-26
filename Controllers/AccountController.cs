@@ -23,8 +23,8 @@ namespace ECommerce.Controllers
         private string _twoFactorAuthFromPhone;
         private string _authToken;
         private string _accountSID;
-
         private int _twoFactorTimeOut;
+        private bool _twoFactorEnabled;
         //private TranparentIdentity _identity;
         /*
          * 
@@ -39,6 +39,7 @@ namespace ECommerce.Controllers
         {
             int.TryParse(ConfigurationManager.AppSettings["TwoFactorAuthTimeSpan"], out _twoFactorAuthTimeSpan);
             int.TryParse(ConfigurationManager.AppSettings["TwoFactorTimeOut"], out _twoFactorTimeOut);
+            bool.TryParse(ConfigurationManager.AppSettings["TwoFactorEnabled"], out _twoFactorEnabled);
             _twoFactorAuthCookie = ConfigurationManager.AppSettings["TwoFactorAuthCookie"];
             _twoFactorAuthSmtpHost = ConfigurationManager.AppSettings["TwoFactorAuthSmtpHost"];
             _twoFactorAuthFromEmail = ConfigurationManager.AppSettings["TwoFactorAuthFromEmail"];
@@ -54,7 +55,8 @@ namespace ECommerce.Controllers
                 TwoFactorAuthFromEmail = _twoFactorAuthFromEmail,
                 TwoFactorAuthFromPhone = _twoFactorAuthFromPhone,
                 AuthToken = _authToken,
-                AccountSID = _accountSID
+                AccountSID = _accountSID,
+                TwoFactorEnabled = _twoFactorEnabled
             };
 
             //_identity = new TranparentIdentity();
@@ -76,7 +78,7 @@ namespace ECommerce.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            return View(new RegisterViewModel());
         }
 
         //
@@ -86,7 +88,7 @@ namespace ECommerce.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            model = Mocks.Mocks.GetRegisterViewModelMocks();
+            //model = Mocks.Mocks.GetRegisterViewModelMocks();
             if (ModelState.IsValid)
             {
                 var user = new User()
@@ -131,21 +133,22 @@ namespace ECommerce.Controllers
             var request = new TwoFactorRequestModel()
             {
                 Provider = Provider.SMS,
-                UserValue = model.UserValue
+                //UserValue = model.UserValue
+                UserValue = "18174120313"
             };
             var response = _twoFactorAuth.CreateTwoFactorAuth(request, Session);
 
-            //Save is validated to database, and utc saved time to associated tables..
+            //if code is good update UtcDate and Verified
 
+            //Save is validated to database, and utc saved time to associated tables..
             return RedirectToAction("VerifyCode", "Account");
         }
 
         public ActionResult VerifyCode()
         {
-            
-
+            var model = new VerifyCodeViewModel();
             //Save is validated to database, and utc saved time to associated tables..
-            return View();
+            return View(model);
         }
 
         [HttpPost]
@@ -155,9 +158,15 @@ namespace ECommerce.Controllers
             {
                 Code = model.Code
             };
-            var response = _twoFactorAuth.VerifyCode(model.Code);
+            var response = _twoFactorAuth.VerifyCode(model.Code, Session);
             //Save is validated to database, and utc saved time to associated tables..
-            return View();
+            model.Status = response.Status;
+            model.Message = response.Message;
+            var user = UserManager.FindByNameAsync(User.Identity.GetUserName());
+            user.Result.Verified = true;
+            user.Result.UtaDateExpire = DateTime.UtcNow.AddDays(_twoFactorAuthTimeSpan);
+            UserManager.UpdateAsync(user.Result);
+            return View(model);
         }
 
         [AllowAnonymous]
@@ -185,16 +194,9 @@ namespace ECommerce.Controllers
                     ModelState.AddModelError("", "Invalid username or password.");
                 }
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-
-        //[HttpPost]
-        //public ActionResult Login(LoginViewModel model)
-        //{
-        //    return View();
-        //}
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
@@ -259,7 +261,9 @@ namespace ECommerce.Controllers
             }
 
             public string LoginProvider { get; set; }
+
             public string RedirectUri { get; set; }
+
             public string UserId { get; set; }
 
             public override void ExecuteResult(ControllerContext context)

@@ -10,6 +10,7 @@ namespace ECommerce.Models
         public string UserValue { get; internal set; }
         public string Email { get; set; }
         public string CellPhone { get; set; }
+        public string Code { get; set; }
 
     }
 }
