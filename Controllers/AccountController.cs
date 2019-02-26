@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using hannon._2factorAuth;
+using hannon.TwoFactorAuth.Models;
 using ECommerce.Models;
 using hannon._2factorAuth.Models;
 using System.Configuration;
 using Microsoft.AspNet.Identity;
-using hannon.TwoFactorAuth.Models;
-//using Hannon.Identity;
 using System.Threading.Tasks;
+using hannon._2factorAuth;
 using Microsoft.Owin.Security;
-//using Hannon.Identity.Models;
-
 
 namespace ECommerce.Controllers
 {
@@ -58,7 +55,7 @@ namespace ECommerce.Controllers
             };
 
             //_identity = new TranparentIdentity();
-            _twoFactorAuth = new TwoFactorAuth(smsConfigs);
+            _twoFactorAuth = new TwoFactorAuth(smsConfigs);  
         }
 
         public AccountController(UserManager<User> userManager)
