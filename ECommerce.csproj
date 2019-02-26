@@ -177,6 +177,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mocks\Mocks.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\TwoFactorViewModel.cs" />
@@ -209,6 +210,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\TwoFactor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

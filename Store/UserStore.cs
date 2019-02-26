@@ -43,7 +43,7 @@ namespace ECommerce
             return Task.Factory.StartNew(() => {
                 user.UserId = Guid.NewGuid();
                 using (SqlConnection connection = new SqlConnection(connectionString))
-                    connection.Execute("insert into Users(UserId, UserName, PasswordHash, SecurityStamp) values(@userId, @userName, @passwordHash, @securityStamp)", user);
+                    connection.Execute("insert into Users(UserId, UserName, PasswordHash, SecurityStamp, Email, CellPhone) values(@userId, @userName, @passwordHash, @securityStamp, @email, @cellPhone)", user);
             });
         }
 

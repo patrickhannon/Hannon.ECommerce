@@ -23,6 +23,8 @@ namespace ECommerce.Controllers
         private string _twoFactorAuthFromPhone;
         private string _authToken;
         private string _accountSID;
+
+        private int _twoFactorTimeOut;
         //private TranparentIdentity _identity;
         /*
          * 
@@ -36,6 +38,7 @@ namespace ECommerce.Controllers
             : this(new UserManager<User>(new UserStore()))
         {
             int.TryParse(ConfigurationManager.AppSettings["TwoFactorAuthTimeSpan"], out _twoFactorAuthTimeSpan);
+            int.TryParse(ConfigurationManager.AppSettings["TwoFactorTimeOut"], out _twoFactorTimeOut);
             _twoFactorAuthCookie = ConfigurationManager.AppSettings["TwoFactorAuthCookie"];
             _twoFactorAuthSmtpHost = ConfigurationManager.AppSettings["TwoFactorAuthSmtpHost"];
             _twoFactorAuthFromEmail = ConfigurationManager.AppSettings["TwoFactorAuthFromEmail"];
@@ -83,29 +86,41 @@ namespace ECommerce.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            model = Mocks.Mocks.GetRegisterViewModelMocks();
             if (ModelState.IsValid)
             {
-                var user = new User() { UserName = model.UserName };
+                var user = new User()
+                {
+                    UserName = model.UserName,
+                    CellPhone = model.CellPhone,
+                    Email = model.Email
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
+
+                    //verification is required for initial register...
+                    return RedirectToAction("TwoFactor", "Account", user);
                 }
                 else
                 {
                     AddErrors(result);
                 }
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }
 
-        public ActionResult TwoFactor()
+        public ActionResult TwoFactor(User user)
         {
             TwoFactorViewModel model = new TwoFactorViewModel();
 
+            if (user != null)
+            {
+                model.CellPhone = user.CellPhone;
+                model.Email = user.Email;
+            }
             return View(model);
         }
 
@@ -118,17 +133,17 @@ namespace ECommerce.Controllers
                 Provider = Provider.SMS,
                 UserValue = model.UserValue
             };
-
-            var response = _twoFactorAuth.CreateTwoFactorAuth(request);
+            var response = _twoFactorAuth.CreateTwoFactorAuth(request, Session);
 
             //Save is validated to database, and utc saved time to associated tables..
 
-            return View();
+            return RedirectToAction("VerifyCode", "Account");
         }
 
         public ActionResult VerifyCode()
         {
             
+
             //Save is validated to database, and utc saved time to associated tables..
             return View();
         }
@@ -140,7 +155,7 @@ namespace ECommerce.Controllers
             {
                 Code = model.Code
             };
-            var response = _twoFactorAuth.VerifyCode(request);
+            var response = _twoFactorAuth.VerifyCode(model.Code);
             //Save is validated to database, and utc saved time to associated tables..
             return View();
         }
@@ -192,6 +207,13 @@ namespace ECommerce.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        public ActionResult LogOff()
+        {
+            AuthenticationManager.SignOut();
+            return RedirectToAction("Index", "Home");
+        }
+
         private void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
