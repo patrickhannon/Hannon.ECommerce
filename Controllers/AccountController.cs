@@ -130,15 +130,18 @@ namespace ECommerce.Controllers
         public ActionResult TwoFactor(TwoFactorViewModel model)
         {
             //what user value are we using: email or sms
-            var request = new TwoFactorRequestModel()
+            if (ModelState.IsValid)
             {
-                Provider = Provider.SMS,
-                //UserValue = model.UserValue
-                UserValue = "18174120313"
-            };
-            var response = _twoFactorAuth.CreateTwoFactorAuth(request, Session);
+                var request = new TwoFactorRequestModel()
+                {
+                    Provider = Provider.SMS,
+                    //UserValue = model.UserValue
+                    UserValue = "18174120313"
+                };
+                var response = _twoFactorAuth.CreateTwoFactorAuth(request, Session);
 
-            //if code is good update UtcDate and Verified
+                //if code is good update UtcDate and Verified
+            }
 
             //Save is validated to database, and utc saved time to associated tables..
             return RedirectToAction("VerifyCode", "Account");
@@ -152,20 +155,24 @@ namespace ECommerce.Controllers
         }
 
         [HttpPost]
-        public ActionResult VerifyCode(VerifyCodeViewModel model)
+        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
             var request = new TwoFactorRequestModel()
             {
                 Code = model.Code
             };
-            var response = _twoFactorAuth.VerifyCode(model.Code, Session);
-            //Save is validated to database, and utc saved time to associated tables..
-            model.Status = response.Status;
-            model.Message = response.Message;
-            var user = UserManager.FindByNameAsync(User.Identity.GetUserName());
-            user.Result.Verified = true;
-            user.Result.UtaDateExpire = DateTime.UtcNow.AddDays(_twoFactorAuthTimeSpan);
-            UserManager.UpdateAsync(user.Result);
+            if (ModelState.IsValid)
+            {
+                var response = _twoFactorAuth.VerifyCode(model.Code, Session, Response);
+                //Save is validated to database, and utc saved time to associated tables..
+                model.Status = response.Status;
+                model.Message = response.Message;
+                var user = await Task.Run(() => UserManager.FindByNameAsync(User.Identity.GetUserName()));
+
+                user.Verified = true;
+                user.UtcDateExpire = DateTime.UtcNow.AddDays(_twoFactorAuthTimeSpan);
+                await UserManager.UpdateAsync(user);
+            }
             return View(model);
         }
 
@@ -186,6 +193,12 @@ namespace ECommerce.Controllers
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
+                    //make sure two factor is in place...
+                    if (!_twoFactorAuth.VerifyTwoFactor(Request, user.UtcDateExpire, user.Verified).Status)
+                    {
+                        //redirect to two factor authentication
+                        return RedirectToAction("TwoFactor", "Account", user);
+                    };
                     await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);
                 }
@@ -241,12 +254,14 @@ namespace ECommerce.Controllers
             RemoveLoginSuccess,
             Error
         }
+
         private async Task SignInAsync(User user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
             var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
+
         private class ChallengeResult : HttpUnauthorizedResult
         {
             public ChallengeResult(string provider, string redirectUri) : this(provider, redirectUri, null)

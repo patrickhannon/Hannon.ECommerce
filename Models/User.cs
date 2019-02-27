@@ -16,22 +16,10 @@ namespace ECommerce.Models
         public string PasswordHash { get; set; }
         public string SecurityStamp { get; set; }
         public bool Verified { get; set; }
-        public DateTime UtaDateExpire { get; set; }
-
-        //public string Id => throw new NotImplementedException();
-
+        public DateTime UtcDateExpire { get; set; }
         string IUser.Id
         {
             get { return UserId.ToString(); }
         }
-
-        //public string Id()
-        //{
-        //    //=> get { return UserId.ToString();
-        //}
-        //string IUser<string>.Id
-        //{
-        //    get { return UserId.ToString(); }
-        //}
     }
     }
