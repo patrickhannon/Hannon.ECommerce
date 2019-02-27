@@ -11,6 +11,7 @@ namespace ECommerce.Models
         public string Email { get; set; }
         public string CellPhone { get; set; }
         public string Code { get; set; }
+        public string Provider { get; set; }
 
     }
 }

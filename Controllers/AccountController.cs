@@ -23,6 +23,7 @@ namespace ECommerce.Controllers
         private string _twoFactorAuthFromPhone;
         private string _authToken;
         private string _accountSID;
+        private string _emailPassword;
         private int _twoFactorTimeOut;
         private bool _twoFactorEnabled;
         //private TranparentIdentity _identity;
@@ -44,6 +45,7 @@ namespace ECommerce.Controllers
             _twoFactorAuthSmtpHost = ConfigurationManager.AppSettings["TwoFactorAuthSmtpHost"];
             _twoFactorAuthFromEmail = ConfigurationManager.AppSettings["TwoFactorAuthFromEmail"];
             _twoFactorAuthFromPhone = ConfigurationManager.AppSettings["TwoFactorAuthFromPhone"];
+            _emailPassword = ConfigurationManager.AppSettings["EmailPassword"];
             _authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];
             _accountSID = ConfigurationManager.AppSettings["TwilioAccountSID"];
 
@@ -56,9 +58,9 @@ namespace ECommerce.Controllers
                 TwoFactorAuthFromPhone = _twoFactorAuthFromPhone,
                 AuthToken = _authToken,
                 AccountSID = _accountSID,
-                TwoFactorEnabled = _twoFactorEnabled
+                TwoFactorEnabled = _twoFactorEnabled,
+                EmailPassword = _emailPassword
             };
-
             //_identity = new TranparentIdentity();
             _twoFactorAuth = new TwoFactorAuth(smsConfigs);  
         }
@@ -88,7 +90,6 @@ namespace ECommerce.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            //model = Mocks.Mocks.GetRegisterViewModelMocks();
             if (ModelState.IsValid)
             {
                 var user = new User()
@@ -101,9 +102,9 @@ namespace ECommerce.Controllers
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
-
                     //verification is required for initial register...
-                    return RedirectToAction("TwoFactor", "Account", user);
+                    Session["User"] = user;
+                    return RedirectToAction("TwoFactor", "Account");
                 }
                 else
                 {
@@ -114,10 +115,11 @@ namespace ECommerce.Controllers
             return View(model);
         }
 
-        public ActionResult TwoFactor(User user)
+        public ActionResult TwoFactor()
         {
             TwoFactorViewModel model = new TwoFactorViewModel();
 
+            var user = Session["User"] as User;
             if (user != null)
             {
                 model.CellPhone = user.CellPhone;
@@ -132,17 +134,16 @@ namespace ECommerce.Controllers
             //what user value are we using: email or sms
             if (ModelState.IsValid)
             {
+                var provider = model.Provider.Equals("Email") ? Provider.Email : Provider.SMS;
+                var user = Session["User"] as User;
                 var request = new TwoFactorRequestModel()
                 {
-                    Provider = Provider.SMS,
-                    //UserValue = model.UserValue
-                    UserValue = "18174120313"
+                    Provider = provider,
+                    UserValue = provider == Provider.Email ? user.Email : user.CellPhone
                 };
                 var response = _twoFactorAuth.CreateTwoFactorAuth(request, Session);
-
                 //if code is good update UtcDate and Verified
             }
-
             //Save is validated to database, and utc saved time to associated tables..
             return RedirectToAction("VerifyCode", "Account");
         }
@@ -194,6 +195,7 @@ namespace ECommerce.Controllers
                 var user = await UserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
+                    Session["User"] = user;
                     //make sure two factor is in place...
                     if (!_twoFactorAuth.VerifyTwoFactor(Request, user.UtcDateExpire, user.Verified).Status)
                     {
@@ -291,6 +293,11 @@ namespace ECommerce.Controllers
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+        }
+
+        private void SetUserSessionInfo()
+        {
+
         }
     }
 }
