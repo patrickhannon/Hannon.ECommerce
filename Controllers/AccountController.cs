@@ -197,12 +197,12 @@ namespace ECommerce.Controllers
                 {
                     Session["User"] = user;
                     //make sure two factor is in place...
+                    await SignInAsync(user, model.RememberMe);
                     if (!_twoFactorAuth.VerifyTwoFactor(Request, user.UtcDateExpire, user.Verified).Status)
                     {
                         //redirect to two factor authentication
                         return RedirectToAction("TwoFactor", "Account", user);
                     };
-                    await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);
                 }
                 else

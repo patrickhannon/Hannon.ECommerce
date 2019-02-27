@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -25,7 +26,7 @@ namespace ECommerce
             if (exception != null)
             {
                 //log the error
-                Utils.LogToEventLog("Application", exception.Message);
+                Utils.LogToEventLog("Application", exception.Message, EventLogEntryType.Error);
             }
         }
     }
