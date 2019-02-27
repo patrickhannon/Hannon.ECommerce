@@ -172,6 +172,7 @@ namespace ECommerce.Controllers
                 user.Verified = true;
                 user.UtcDateExpire = DateTime.UtcNow.AddDays(_twoFactorAuthTimeSpan);
                 await UserManager.UpdateAsync(user);
+                return RedirectToAction("Index", "Home");
             }
             return View(model);
         }

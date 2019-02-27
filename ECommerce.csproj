@@ -227,6 +227,10 @@
       <Project>{09a5b8c1-ffd6-49a8-b62b-ad3a05418c52}</Project>
       <Name>hannon.TwofactorAuth</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Hannon.Utils\Hannon.Utils.csproj">
+      <Project>{3695e363-3e52-4852-8d10-cd8138471755}</Project>
+      <Name>Hannon.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
