@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ECommerce</RootNamespace>
     <AssemblyName>ECommerce</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -173,13 +173,19 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
+    <Compile Include="Filters\ECommerceAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mocks\Mocks.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\TwoFactorViewModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\VerifyCodeViewModel.cs" />
@@ -212,6 +218,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\TwoFactor.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -221,8 +230,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ECommerce.Data\ECommerce.Data.csproj">
+      <Project>{df351610-4897-4df0-8bcf-d926f2a4f2eb}</Project>
+      <Name>ECommerce.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Hannon.TwoFactorAuth\hannon.TwofactorAuth.csproj">
       <Project>{09a5b8c1-ffd6-49a8-b62b-ad3a05418c52}</Project>
       <Name>hannon.TwofactorAuth</Name>

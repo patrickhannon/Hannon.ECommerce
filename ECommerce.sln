@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hannon.UnitTest", "..\Hanno
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hannon.Utils", "..\Hannon.Utils\Hannon.Utils.csproj", "{3695E363-3E52-4852-8D10-CD8138471755}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.Data", "..\ECommerce.Data\ECommerce.Data.csproj", "{DF351610-4897-4DF0-8BCF-D926F2A4F2EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3695E363-3E52-4852-8D10-CD8138471755}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3695E363-3E52-4852-8D10-CD8138471755}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3695E363-3E52-4852-8D10-CD8138471755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF351610-4897-4DF0-8BCF-D926F2A4F2EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF351610-4897-4DF0-8BCF-D926F2A4F2EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF351610-4897-4DF0-8BCF-D926F2A4F2EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF351610-4897-4DF0-8BCF-D926F2A4F2EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

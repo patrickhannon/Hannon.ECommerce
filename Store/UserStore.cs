@@ -10,9 +10,13 @@ using Dapper;
 //using Hannon.Identity.Models;
 using ECommerce.Models;
 
-namespace ECommerce
+namespace ECommerce.Store
 {
-    public class UserStore : IUserStore<User>, IUserLoginStore<User>, IUserPasswordStore<User>, IUserSecurityStampStore<User>
+    public class UserStore : 
+        IUserStore<User>, 
+        IUserLoginStore<User>, 
+        IUserPasswordStore<User>, 
+        IUserSecurityStampStore<User>
     {
         private readonly string connectionString;
 
@@ -211,6 +215,28 @@ namespace ECommerce
             user.SecurityStamp = stamp;
 
             return Task.FromResult(0);
+        }
+
+        
+
+        public IList<string> GetRoles(User user)
+        {
+            IList<string> roles;
+            if (user == null)
+                throw new ArgumentNullException("user");
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                roles =
+                    connection.Query<string>(
+                        "select r.Name from User u inner join UserRole ur on ur.UserId = u.UserId where r.UserId = @userId",
+                        user).ToList();
+            }
+            return roles;
+        }
+
+        public Task<bool> IsInRoleAsync(User user, string role)
+        {
+            throw new NotImplementedException();
         }
 
         #endregion

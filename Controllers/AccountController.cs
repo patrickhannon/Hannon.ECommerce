@@ -11,6 +11,9 @@ using Microsoft.AspNet.Identity;
 using System.Threading.Tasks;
 using hannon._2factorAuth;
 using Microsoft.Owin.Security;
+using ECommerce.Store;
+using ECommerce.Data.Entities;
+using ECommerce.Data.Repository;
 
 namespace ECommerce.Controllers
 {
@@ -24,7 +27,7 @@ namespace ECommerce.Controllers
         private string _authToken;
         private string _accountSID;
         private string _emailPassword;
-        private int _twoFactorTimeOut;
+        private readonly int _twoFactorTimeOut;
         private bool _twoFactorEnabled;
         //private TranparentIdentity _identity;
         /*
@@ -34,6 +37,9 @@ namespace ECommerce.Controllers
         //youtube video will be on using the nuget package...
         private ITwoFactorAuth _twoFactorAuth;
         // GET: Account
+
+        private RolesRepository _rolesRepository;
+        private string _connectionString;
 
         public AccountController() 
             : this(new UserManager<User>(new UserStore()))
@@ -48,7 +54,9 @@ namespace ECommerce.Controllers
             _emailPassword = ConfigurationManager.AppSettings["EmailPassword"];
             _authToken = ConfigurationManager.AppSettings["TwilioAuthToken"];
             _accountSID = ConfigurationManager.AppSettings["TwilioAccountSID"];
+            _connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
+            _rolesRepository = new RolesRepository(_connectionString);
             var smsConfigs = new InitTwoFactor()
             {
                 TwoFactorAuthTimeSpan = _twoFactorAuthTimeSpan,
@@ -83,8 +91,6 @@ namespace ECommerce.Controllers
             return View(new RegisterViewModel());
         }
 
-        //
-        // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -101,6 +107,15 @@ namespace ECommerce.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //Create user Role Customer...
+                    var role = new UserRole()
+                    {
+                        UserId = user.UserId,
+                        Role = "Customer"
+                    };
+                    await _rolesRepository.AddToRoleAsync(role);
+                    //var user = await Task.Run(() => UserManager.FindByNameAsync(User.Identity.GetUserName()));
+
                     await SignInAsync(user, isPersistent: false);
                     //verification is required for initial register...
                     Session["User"] = user;
