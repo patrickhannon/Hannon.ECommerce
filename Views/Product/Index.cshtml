@@ -1,40 +1,43 @@
-﻿@using ECommerce.Models
+﻿@model ECommerce.Models.ProductModel
 @using ECommerce.Data.Entities
+@using ECommerce.Models
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    
-    <h3>Products List</h3>
-    <table cellpadding="2" cellspacing="2" border="1">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Photo</th>
-            <th>Price</th>
-            <th>Buy</th>
-        </tr>
-        @foreach (Product product in ViewBag.products)
+<h3>Products List</h3>
+<div class="table-responsive">
+    <table class="table table-bordered table-condensed table-striped table-hover sortable">
+        @if (!Model.Products.Any())
         {
             <tr>
-                <td>@product.Id</td>
-                <td>@product.Name</td>
-                <td><img src="~/Content/Images/@product.Photo" width="60" /> </td>
-                <td>@product.Price</td>
-                <td align="center">
-                    <a href="@Url.Action("Buy", "Cart", new { id = product.Id })">Buy Now</a>
-                </td>
+                <td colspan="10">No Record's found.</td>
             </tr>
         }
+        else
+        {
+            <thead>
+                <tr class="danger">
+                    <th data-defaultsign="_19">ID</th>
+                    <th data-defaultsign="AZ">Name</th>
+                    <th data-defaultsign="AZ">Photo</th>
+                    <th data-defaultsign="month">Price</th>
+                    <th data-firstsort="desc">Buy Now</th>
+                </tr>
+            </thead>
+            foreach (Product product in Model.Products)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td><img src="~/Content/Images/@product.Photo" width="60" /> </td>
+                    <td>@product.Price</td>
+                    <td align="center">
+                        <a href="@Url.Action("Buy", "Cart", new { id = product.Id })">Buy Now</a>
+                    </td>
+                </tr>
+            }
+        }
     </table>
-
-</body>
-</html>
+</div>

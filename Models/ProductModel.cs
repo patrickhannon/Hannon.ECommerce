@@ -8,10 +8,10 @@ namespace ECommerce.Models
 {
     public class ProductModel
     {
-        private List<Product> products;
+
         public ProductModel()
         {
-            this.products = new List<Product>()
+            this.Products = new List<Product>()
             {
                 new Product
                 {
@@ -37,14 +37,16 @@ namespace ECommerce.Models
             };
         }
 
+        public List<Product> Products { get; set; }
+
         public List<Product> findAll()
         {
-            return this.products;
+            return Products;
         }
 
         public Product find(string id)
         {
-            return this.products.Single(p => p.Id.Equals(id));
+            return this.Products.Single(p => p.Id.Equals(id));
         }
     }
 }

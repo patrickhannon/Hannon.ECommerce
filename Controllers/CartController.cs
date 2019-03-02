@@ -16,7 +16,17 @@ namespace ECommerce.Controllers
         [ECommerceAuthorize(AccessLevel = "Customer")]
         public ActionResult Index()
         {
-            return View();
+            var items =  (List<Item>)Session["cart"];
+            var cartModel = new CartViewModel();
+            if (items != null && items.Any())
+            {
+                cartModel.Items = items;
+            }
+            else
+            {
+                cartModel.Items = new List<Item>();
+            }
+            return View(cartModel);
         }
 
         public ActionResult Buy(string id)

@@ -14,8 +14,8 @@ namespace ECommerce.Controllers
         public ActionResult Index()
         {
             ProductModel productModel = new ProductModel();
-            ViewBag.products = productModel.findAll();
-            return View();
+            productModel.Products = productModel.findAll();
+            return View(productModel);
         }
     }
 }
