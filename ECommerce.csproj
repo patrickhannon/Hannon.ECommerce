@@ -233,7 +233,7 @@
     <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ECommerce.Data\ECommerce.Data.csproj">
+    <ProjectReference Include="..\Hannon.ECommerce.Data\ECommerce.Data.csproj">
       <Project>{df351610-4897-4df0-8bcf-d926f2a4f2eb}</Project>
       <Name>ECommerce.Data</Name>
     </ProjectReference>
