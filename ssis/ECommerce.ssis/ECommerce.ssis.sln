@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "ECommerce.ssis", "ECommerce.ssis.dtproj", "{DDB32640-02D0-4166-B5FB-7BE3A876217C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDB32640-02D0-4166-B5FB-7BE3A876217C}.Development|Default.ActiveCfg = Development
+		{DDB32640-02D0-4166-B5FB-7BE3A876217C}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {533C75B4-3B41-4BD8-B23F-95D67BAA52B1}
+	EndGlobalSection
+EndGlobal
