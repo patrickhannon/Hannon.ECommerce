@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce", "ECommerce.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hannon.TwofactorAuth", "..\Hannon.TwoFactorAuth\hannon.TwofactorAuth.csproj", "{09A5B8C1-FFD6-49A8-B62B-AD3A05418C52}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hannon.UnitTest", "..\Hannon.UnitTest\Hannon.UnitTest\Hannon.UnitTest.csproj", "{26415A32-7D0E-46BA-8436-2BA7A4955C7F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hannon.Utils", "..\Hannon.Utils\Hannon.Utils.csproj", "{3695E363-3E52-4852-8D10-CD8138471755}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECommerce.Data", "..\Hannon.ECommerce.Data\ECommerce.Data.csproj", "{DF351610-4897-4DF0-8BCF-D926F2A4F2EB}"
@@ -18,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hannon.FreightEngine", "..\Hannon.FreightEngine\Hannon.FreightEngine.csproj", "{44B6D982-20E3-4759-A225-9C3B89D212C6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hannon.PayFabric", "..\Hannon.PayFabric\Hannon.PayFabric.csproj", "{E84D4A38-6B7F-43D5-A18C-F91C8A0B115F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hannon.UnitTest", "..\Hannon.UnitTest\Hannon.UnitTest\Hannon.UnitTest.csproj", "{26415A32-7D0E-46BA-8436-2BA7A4955C7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,10 +33,6 @@ Global
 		{09A5B8C1-FFD6-49A8-B62B-AD3A05418C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09A5B8C1-FFD6-49A8-B62B-AD3A05418C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09A5B8C1-FFD6-49A8-B62B-AD3A05418C52}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26415A32-7D0E-46BA-8436-2BA7A4955C7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26415A32-7D0E-46BA-8436-2BA7A4955C7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26415A32-7D0E-46BA-8436-2BA7A4955C7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26415A32-7D0E-46BA-8436-2BA7A4955C7F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3695E363-3E52-4852-8D10-CD8138471755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3695E363-3E52-4852-8D10-CD8138471755}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3695E363-3E52-4852-8D10-CD8138471755}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,6 +53,10 @@ Global
 		{E84D4A38-6B7F-43D5-A18C-F91C8A0B115F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E84D4A38-6B7F-43D5-A18C-F91C8A0B115F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E84D4A38-6B7F-43D5-A18C-F91C8A0B115F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26415A32-7D0E-46BA-8436-2BA7A4955C7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26415A32-7D0E-46BA-8436-2BA7A4955C7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26415A32-7D0E-46BA-8436-2BA7A4955C7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26415A32-7D0E-46BA-8436-2BA7A4955C7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

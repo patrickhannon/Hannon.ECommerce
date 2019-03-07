@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using ECommerce.Data;
 using ECommerce.Data.Entities;
+using ECommerce.Data.Entities.Catalog;
+
 namespace ECommerce.Models
 {
     public class ProductModel
