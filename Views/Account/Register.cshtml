@@ -41,10 +41,27 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
+            <input type="submit" class="btn btn-primary" value="Register" />
         </div>
     </div>
 }
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    
+    <script>
+        $(document).ready(function () {
+            // NOTE: Must use input type='text' and not 'email' 
+            //       in order for masking to work
+            //$("#Email").inputmask("email");
+            //$("#StartDate").inputmask("date");
+            $("#CellPhone").inputmask("mask", { "mask": "(999) 999-9999", 'removeMaskOnSubmit': true});
+            // NOTE: Must use autoUnmask to allow numerics to 
+            //       post back to MVC model
+            //       Must use input type='text' and not 'number' in 
+            //       order for masking to work
+            //$("#Salary").inputmask("currency", { 'removeMaskOnSubmit': true });
+        });
+    </script>
+    
+
 }

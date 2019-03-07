@@ -4,10 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ECommerce.Filters;
+using ECommerce.Models;
 
 namespace ECommerce.Controllers
 {
-    public class OrdersController : Controller
+    public class OrderController : Controller
     {
         // GET: Orders
         [ECommerceAuthorize(AccessLevel = "Customer")]
@@ -17,9 +18,10 @@ namespace ECommerce.Controllers
         }
 
         [Authorize]
-        public ActionResult Orders()
+        public ActionResult CustomerOrders()
         {
-            return View();
+            var searchModel = new SearchViewModel();
+            return View(searchModel);
         }
     }
 }

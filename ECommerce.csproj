@@ -142,6 +142,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\daterangepicker.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -159,6 +160,27 @@
     <None Include="scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
+    <Content Include="scripts\daterangepicker.js" />
+    <Content Include="scripts\inputmask\bindings\inputmask.binding.js" />
+    <Content Include="scripts\inputmask\dependencyLibs\inputmask.dependencyLib.jqlite.js" />
+    <Content Include="scripts\inputmask\dependencyLibs\inputmask.dependencyLib.jquery.js" />
+    <Content Include="scripts\inputmask\dependencyLibs\inputmask.dependencyLib.js" />
+    <Content Include="scripts\inputmask\global\window.js" />
+    <Content Include="scripts\inputmask\inputmask.date.extensions.js" />
+    <Content Include="scripts\inputmask\inputmask.extensions.js" />
+    <Content Include="scripts\inputmask\inputmask.js" />
+    <Content Include="scripts\inputmask\inputmask.numeric.extensions.js" />
+    <Content Include="scripts\inputmask\jquery.inputmask.js" />
+    <Content Include="scripts\inputmask\min\bindings\inputmask.binding.min.js" />
+    <Content Include="scripts\inputmask\min\dependencyLibs\inputmask.dependencyLib.jqlite.min.js" />
+    <Content Include="scripts\inputmask\min\dependencyLibs\inputmask.dependencyLib.jquery.min.js" />
+    <Content Include="scripts\inputmask\min\dependencyLibs\inputmask.dependencyLib.min.js" />
+    <Content Include="scripts\inputmask\min\global\window.min.js" />
+    <Content Include="scripts\inputmask\min\inputmask.date.extensions.min.js" />
+    <Content Include="scripts\inputmask\min\inputmask.extensions.min.js" />
+    <Content Include="scripts\inputmask\min\inputmask.min.js" />
+    <Content Include="scripts\inputmask\min\inputmask.numeric.extensions.min.js" />
+    <Content Include="scripts\inputmask\min\jquery.inputmask.min.js" />
     <Content Include="scripts\jquery-2.0.3.js" />
     <Content Include="scripts\jquery-2.0.3.min.js" />
     <None Include="scripts\jquery.validate-vsdoc.js" />
@@ -187,7 +209,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -202,6 +224,7 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\Paging\IPriceFormatter.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Models\TwoFactorViewModel.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\VerifyCodeViewModel.cs" />
@@ -236,11 +259,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\TwoFactor.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Error\Unauthorised.cshtml" />
+    <Content Include="Views\Order\CustomerOrders.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

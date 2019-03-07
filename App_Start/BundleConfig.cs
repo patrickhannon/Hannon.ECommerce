@@ -22,13 +22,23 @@ namespace ECommerce
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/moment.min.js",
+                      "~/Scripts/daterangepicker.js",
                       "~/Scripts/bootstrap-sortable.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/daterangepicker.css",
                       "~/Content/bootstrap-sortable.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/inputmask").Include(
+                "~/Scripts/inputmask/inputmask.js",
+                "~/Scripts/inputmask/jquery.inputmask.js",
+                "~/Scripts/inputmask/inputmask.extensions.js",
+                "~/Scripts/inputmask/inputmask.date.extensions.js",
+                //and other extensions you want to include
+                "~/Scripts/inputmask/inputmask.numeric.extensions.js"));
         }
     }
 }

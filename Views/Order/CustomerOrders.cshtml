@@ -1,0 +1,78 @@
+﻿@model ECommerce.Models.SearchViewModel
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Orders</h2>
+
+
+<h2>Simple Date Range Picker</h2>
+
+@*@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-xs-12 col-md-6 center-block">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Date Range</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FromDate, "Order From")
+                        @Html.TextBoxFor(m => m.FromDate)
+                    </div>
+                </div>
+            </div>
+        </div>
+     </div>
+}*@
+
+
+<div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+    <div class="card-header">Date Range</div>
+    <div class="card-body">
+        <h4 class="card-title">Add Date Range</h4>
+        <p class="card-text">
+            @using (Html.BeginForm())
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.FromDate, "Order From")
+                    @Html.TextBoxFor(m => m.FromDate)
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ToDate, "Order To")
+                    @Html.TextBoxFor(m => m.ToDate)
+                </div>
+            }
+        </p>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('input[name="FromDate"]').daterangepicker(
+            {
+                    format: 'MM/DD/YYYY',
+                    startDate: "01/01/2019",
+                    endRange: "02/07/2019",
+                    singleDatePicker: false,
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                        'Last 7 Days': [moment().subtract('days', 6), moment()],
+                        'Last 30 Days': [moment().subtract('days', 29), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+                    },
+            },
+            function(start, end, label) {
+                $("#FromDate").val(start.format('MM/DD/YYYY'));
+                $("#ToDate").val(end.format('MM/DD/YYYY'));
+            }
+            );
+        });
+    </script>
+}
