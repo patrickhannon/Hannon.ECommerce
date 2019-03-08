@@ -1,0 +1,80 @@
+﻿@model ECommerce.Data.Entities.Customers.Customer
+@using ECommerce.Components
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+  /* BEGIN: Check box in Button Styles */
+    .checkbox .btn,
+    .checkbox-inline .btn {
+        padding-left: 2em;
+        min-width: 10em;
+    }
+
+    .checkbox-inline {
+        margin-left: -1.5em;
+    }
+
+    .checkbox label,
+    .checkbox-inline label {
+        text-align: left;
+    }
+/* END: Check box in Button Styles */
+/* BEGIN: Radio Button in Button Styles */
+    .radio .btn,
+    .radio-inline .btn {
+        padding-left: 2em;
+        min-width: 10em;
+    }
+
+    .radio-inline {
+        margin-left: -1.5em;
+    }
+
+    .radio label,
+    .radio-inline label {
+        text-align: left;
+    }
+/* END: Radio Button in Button Styles */
+</style>
+
+<div class="row">
+    <div class="col-xs-12 col-md-6 center-block">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Customer Active or US based (Inline)</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.CheckBoxButtonFor(m => m.HasShoppingCartItems,
+                        "HasShoppingCartItems", "HasShoppingCartItems?")
+                </div>
+                <div class="form-group">
+                    @Html.CheckBoxButtonFor(m => m.Active,
+                        "Active", "Active?", "", true, false)
+                </div>
+                <div class="form-group">
+                    @Html.CheckBoxButtonFor(m => m.IsTaxExempt,
+                        "IsTaxExempt", "IsTaxExempt")
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.RadioButtonInButtonFor(m => m.Active,
+                    "IsActive", "IsActive", "Is Active?", "true")
+            </div>
+            <div class="form-group">
+                @Html.RadioButtonInButtonFor(m => m.Active,
+                    "IsInactive", "IsActive", "Is NOT Active?", "false")
+            </div>
+            <div class="panel-footer">
+                @Html.SubmitButton("Submit")
+                @Html.SubmitButton("Cancel", "cancelButton",
+                    true, "btn-default")
+            </div>
+        </div>
+    </div>
+</div>
+
+

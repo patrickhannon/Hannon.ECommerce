@@ -1,0 +1,32 @@
+﻿@using ECommerce.Components
+@model ECommerce.Data.Entities.Customers.Customer
+@{
+    ViewBag.Title = "Settings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12 col-md-6 center-block">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Customer Active or US based (Inline)</h3>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    @Html.CheckBoxBootstrapFor(m => m.IsTaxExempt,
+                        "IsActive", "Is Active?", true, false, true)
+                    @Html.CheckBoxBootstrapFor(m => m.HasShoppingCartItems,
+                        "IsIn401k", "IsActive?", false, false, true)
+                    @Html.CheckBoxBootstrapFor(m => m.Active,
+                        "IsInHealthCare", "Us Based?", true, false, true)
+                </div>
+            </div>
+            <div class="panel-footer">
+                @Html.SubmitButton("Submit")
+                @Html.SubmitButton("Cancel", "cancelButton", true, "btn-default")
+            </div>
+        </div>
+    </div>
+</div>
+
+

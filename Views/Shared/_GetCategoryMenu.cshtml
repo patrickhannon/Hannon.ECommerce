@@ -1,0 +1,30 @@
+﻿@using ECommerce.Models
+@model ECommerce.Models.HanMenu
+@{
+    ViewBag.Title = "_GetCategoryMenu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="../Content/pdsa-sidebar.css" media="all" rel="stylesheet" type="text/css">
+
+<div class="container">
+    <div class="row">
+        <div class="headerArea">
+            Data Driven Sidebar Sample
+        </div>
+    </div>
+    <nav class="pdsa-sn-wrapper">
+        <ul>
+            <li class="pdsa-sn-brand">
+                <a href="/Home/Index">Menus</a>
+            </li>
+            @foreach (HanMenuItem item in Model.MenuItems)
+            {
+                <li>
+                    <a href="@item.MenuAction">@item.MenuTitle</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+

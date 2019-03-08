@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Data.SqlTypes;
+using ECommerce.Data.Entities.Customers;
 
 namespace ECommerce.Models
 {
@@ -55,5 +57,12 @@ namespace ECommerce.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        [Display(Name = "Active Customer")]
+        public bool IsActive { get; set; }
+
+        [Required]
+        [Display(Name = "US Customer")]
+        public bool USCustomer { get; set; }
     }
 }
