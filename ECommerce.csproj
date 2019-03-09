@@ -474,6 +474,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Catalog\ICategoryService.cs" />
     <Compile Include="Services\Catalog\Impl\CategoryService.cs" />
+    <Compile Include="Services\Catalog\Impl\ProductService.cs" />
+    <Compile Include="Services\Catalog\IProductService.cs" />
     <Compile Include="Services\IPriceCalculationService.cs" />
     <Compile Include="Services\Menu\IMenuService.cs" />
     <Compile Include="Services\Menu\Impl\MenuService.cs" />
