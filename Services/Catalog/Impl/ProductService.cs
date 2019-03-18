@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ECommerce.Data.Core.Data;
 using ECommerce.Data.Entities;
 using ECommerce.Data.Entities.Catalog;
+using ECommerce.Data.Entities.Discounts;
 using ECommerce.Data.Entities.Media;
+using ECommerce.Data.Entities.Shipping;
 using ECommerce.Data.Repository;
 using Hannon.Utils;
 
@@ -12,34 +15,46 @@ namespace ECommerce.Services.Catalog.Impl
 {
     public class ProductService : IProductService
     {
-        private readonly PictureBinaryRepository _pictureBinaryRepository;
-        private readonly PictureRepository _pictureRepository;
-        private readonly ProductAttributeCombinationRepository _productAttributeCombinationRepository;
-        private readonly ProductAttributeRepository _productAttributeRepository;
-        private readonly ProductAttributeValueRepository _productAttributeValueRepository;
-        private readonly ProductAvailabilityRangeRepository _productAvailabilityRangeRepository;
-        private readonly ProductCategoryMappingRepository _productCategoryMappingRepository;
-        private readonly ProductProductAttributeMappingRepository _productProductAttributeMappingRepository;
-        private readonly ProductTagMappingRepository _productProductTagMappingRepository;
-        private readonly ProductSpecificationAttributeRepository _productSpecificationAttributeMappingRepository;
-        private readonly SpecificationAttributeOptionRepository _specificationAttributeOptionRepository;
-        private readonly SpecificationAttributeRepository _specificationAttributeRepository;
-        private readonly ProductRepository _productRepository;
+        private readonly IRepository<PictureBinary> _pictureBinaryRepository;
+        private readonly IRepository<Picture> _pictureRepository;
+        private readonly IRepository<ProductAttributeCombination> _productAttributeCombinationRepository;
+        private readonly IRepository<ProductAttribute> _productAttributeRepository;
+        private readonly IRepository<ProductAttributeValue> _productAttributeValueRepository;
+        private readonly IRepository<ProductAvailabilityRange> _productAvailabilityRangeRepository;
+        private readonly IRepository<ProductCategory> _productCategoryMappingRepository;
+        private readonly IRepository<ProductAttributeMapping> _productProductAttributeMappingRepository;
+        private readonly IRepository<ProductProductTagMapping> _productProductTagMappingRepository;
+        private readonly IRepository<ProductSpecificationAttribute> _productSpecificationAttributeMappingRepository;
+        private readonly IRepository<SpecificationAttributeOption> _specificationAttributeOptionRepository;
+        private readonly IRepository<SpecificationAttribute> _specificationAttributeRepository;
+        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<ProductManufacturer> _productManufacturerMappingRepository;
+        private readonly IRepository<ProductPicture> _productPictureRepository;
+        private readonly IRepository<ProductReview> _productReviewsRepository;
+        private readonly IRepository<TierPrice> _tierPricesRepository;
+        private readonly IRepository<DiscountProductMapping> _discountProductMappingRepository;
+        private readonly IRepository<ProductWarehouseInventory> _productWarehouseInventoryRepository;
 
         public ProductService(
-            PictureBinaryRepository pictureBinaryRepository,
-            PictureRepository pictureRepository,
-            ProductAttributeCombinationRepository productAttributeCombinationRepository,
-            ProductAttributeRepository productAttributeRepository,
-            ProductAttributeValueRepository productAttributeValueRepository,
-            ProductAvailabilityRangeRepository productAvailabilityRangeRepository,
-            ProductCategoryMappingRepository productCategoryMappingRepository,
-            ProductProductAttributeMappingRepository productProductAttributeMappingRepository,
-            ProductTagMappingRepository productProductTagMappingRepository,
-            ProductSpecificationAttributeRepository productSpecificationAttributeMappingRepository,
-            SpecificationAttributeOptionRepository specificationAttributeOptionRepository,
-            SpecificationAttributeRepository specificationAttributeRepository,
-            ProductRepository productRepository
+            IRepository<PictureBinary> pictureBinaryRepository,
+            IRepository<Picture> pictureRepository,
+            IRepository<ProductAttributeCombination> productAttributeCombinationRepository,
+            IRepository<ProductAttribute> productAttributeRepository,
+            IRepository<ProductAttributeValue> productAttributeValueRepository,
+            IRepository<ProductAvailabilityRange> productAvailabilityRangeRepository,
+            IRepository<ProductCategory> productCategoryMappingRepository,
+            IRepository<ProductAttributeMapping> productProductAttributeMappingRepository,
+            IRepository<ProductProductTagMapping> productProductTagMappingRepository,
+            IRepository<ProductSpecificationAttribute> productSpecificationAttributeMappingRepository,
+            IRepository<SpecificationAttributeOption> specificationAttributeOptionRepository,
+            IRepository<SpecificationAttribute> specificationAttributeRepository,
+            IRepository<Product> productRepository,
+            IRepository<ProductManufacturer> productManufacturerMappingRepository,
+            IRepository<ProductPicture> productPictureRepository,
+            IRepository<ProductReview> productReviewsRepository,
+            IRepository<TierPrice> tierPricesRepository,
+            IRepository<DiscountProductMapping> discountProductMappingRepository,
+            IRepository<ProductWarehouseInventory> productWarehouseInventoryRepository
             )
         {
             _pictureBinaryRepository = pictureBinaryRepository;
@@ -55,6 +70,12 @@ namespace ECommerce.Services.Catalog.Impl
             _specificationAttributeOptionRepository = specificationAttributeOptionRepository;
             _specificationAttributeRepository = specificationAttributeRepository;
             _productRepository = productRepository;
+            _productManufacturerMappingRepository = productManufacturerMappingRepository;
+            _productPictureRepository = productPictureRepository;
+            _productReviewsRepository = productReviewsRepository;
+            _tierPricesRepository = tierPricesRepository;
+            _discountProductMappingRepository = discountProductMappingRepository;
+            _productWarehouseInventoryRepository = productWarehouseInventoryRepository;
         }
 
 
@@ -62,36 +83,31 @@ namespace ECommerce.Services.Catalog.Impl
         {
             ArgumentValidator.ThrowOnOutOfRange("productId", productId, 1, Int32.MaxValue);
             var product = _productRepository.GetById(productId);
-            //ProductCategory productCategory = _productCategoryMappingRepository.GetByProductId(productId);
+            var productCategories = _productCategoryMappingRepository.GetByProductId(productId);
+            var productManufacturers = _productManufacturerMappingRepository.GetByProductId(productId);
+            var productPictures = _productPictureRepository.GetByProductId(productId);
+            var productReviews = _productReviewsRepository.GetByProductId(productId);
+            var productSpecificationAttributes =
+                _productSpecificationAttributeMappingRepository.GetByProductId(productId);
 
+            var productProductTagMappings = _productProductTagMappingRepository.GetByProductId(productId);
+            //todo var productAttributeMappings = _productAttributeRepository.GetByProductId(productId);
+            var tierPrices = _tierPricesRepository.GetByProductId(productId);
+            //todo var discountProductMapping = _discountProductMappingRepository.GetByProductId(productId);
+            var productWarehouseInventory = _productWarehouseInventoryRepository.GetByProductId(productId);
 
+            if (productCategories.Any()) product.ProductCategories = productCategories;
+            if (productManufacturers.Any()) product.ProductManufacturers = productManufacturers;
+            if (productPictures.Any()) product.ProductPictures = productPictures;
+            if (productReviews.Any()) product.ProductReviews = productReviews;
+            if (productSpecificationAttributes.Any()) product.ProductSpecificationAttributes = productSpecificationAttributes;
+            //if (productProductTagMappings.Any()) product.ProductProductTagMappings = productProductTagMappings;
+            //if (productAttributeMappings.Any()) product.ProductAttributeMappings = productAttributeMappings;
+            if (productCategories.Any()) product.ProductCategories = productCategories;
+            if (tierPrices.Any()) product.TierPrices = tierPrices;
+            if (productWarehouseInventory.Any()) product.ProductWarehouseInventory = productWarehouseInventory;
 
-            //missing ProductPicture
-            //ProductAttributeMapping productAttributeMapping = _productProductAttributeMappingRepository.GetByProductId(productId);
-            //ProductProductTagMapping productProductTagMapping = _productProductTagMappingRepository.GetByProductId(productId);
-            //todo ProductSpecificationAttribute productSpecificationAttribute = _productSpecificationAttributeMappingRepository.GetByProductId(productId);
-            //ProductAttribute productAttribute = _productAttributeRepository.GetByProductId(productId);
-            //ProductAttributeCombination productAttributeCombination = _productAttributeCombinationRepository.GetByProductId(productId);
-            //ProductAttributeValue productAttributeValue = _productAttributeValueRepository.GetByProductId(productId);
-
-            //todo SpecificationAttributeOption specificationAttributeOption = _specificationAttributeOptionRepository.GetById();
-            //todo SpecificationAttribute specificationAttribute = _specificationAttributeRepository.GetById();
-            //todo missing ProductPicture
-            //PictureBinary pictureBinary = _pictureBinaryRepository.GetById();
-            //Picture picture = _pictureRepository.GetById();
-            
-            
-            //var productAttributeCombination = _productAttributeCombinationRepository.GetById();
-            //var productAttribute = _productAttributeRepository.GetById();
-            //var productAttributeValue = _productAttributeValueRepository.GetById();
-            //var productAvailabilityRange = _productAvailabilityRangeRepository.GetById();
-            //var productCategory = _productCategoryMappingRepository.GetById();
-            //var productAttributeMapping = _productProductAttributeMappingRepository.GetById();
-            //var productProductTagMapping = _productProductTagMappingRepository.GetById();
-            //var productSpecificationAttribute = _productSpecificationAttributeMappingRepository.GetById();
-            //var specificationAttributeOption = _specificationAttributeOptionRepository.GetById();
-            //var specificationAttribute = _specificationAttributeRepository.GetById();
-
+           
 
             return product;
         }

@@ -1,0 +1,72 @@
+﻿@model ECommerce.Data.Entities.Catalog.Product
+@{
+    ViewBag.Title = "GetProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetProduct</h2>
+
+@Model.ToString()
+
+@Model.ProductCategories.Any()
+@Model.ProductManufacturers.Any()
+@Model.ProductReviews.Any()
+@Model.ProductProductTagMappings.Any()
+@Model.ProductAttributeMappings.Any()
+@Model.ProductAttributeCombinations.Any()
+@Model.ProductSpecificationAttributes.Any()
+@Model.ProductWarehouseInventory.Any()
+@Model.ProductPictures.Any()
+@Model.TierPrices.Any()
+
+<br />
+@foreach (var item in Model.ProductCategories)
+{
+    @item
+}
+<br />
+@foreach (var item in Model.ProductManufacturers)
+{
+    @item
+}
+<br />
+@foreach (var item in Model.ProductReviews)
+{
+    @item
+}
+<br />
+@foreach (var item in Model.ProductProductTagMappings)
+{
+    @item
+}
+<br />
+@foreach (var item in Model.ProductAttributeMappings)
+{
+    @item
+}
+<br />
+@foreach (var item in Model.ProductAttributeCombinations)
+{
+    @item
+}
+<br />
+@foreach (var item in Model.ProductSpecificationAttributes)
+{
+    @item
+}
+<br />
+@foreach (var item in Model.ProductWarehouseInventory)
+{
+    @item
+}
+@foreach (var item in Model.ProductPictures)
+{
+    @item
+}
+@foreach (var item in Model.TierPrices)
+{
+    @item
+}
+
+
+

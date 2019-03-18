@@ -517,6 +517,8 @@
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Catalog\Category.cshtml" />
     <Content Include="Views\Shared\_GetCategoryMenu.cshtml" />
+    <Content Include="Views\Catalog\Search.cshtml" />
+    <Content Include="Views\Product\GetProduct.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -526,7 +528,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DependencyResolution\" />
     <Folder Include="Services\Discounts\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

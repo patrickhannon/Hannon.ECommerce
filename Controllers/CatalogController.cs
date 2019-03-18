@@ -57,6 +57,22 @@ namespace ECommerce.Controllers
             return PartialView("_GetCategoryMenu", model);
         }
 
+        [AllowAnonymous]
+        public virtual ActionResult Search(string searchTerm)
+        {
+            //Lets see what's being searched for, this is for SEO optimization
+
+            //Look in Category; returns true get all the products belonging to that Category...
+            //Cherry pick what is shown on the page, same product model..
+
+            //Look in Product; returns true gets that product...
+
+
+
+            return View();
+        }
+
+
         //public virtual ActionResult Search(SearchModel model, CatalogPagingFilteringModel command)
         //{
         //    //'Continue shopping' URL
