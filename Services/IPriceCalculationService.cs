@@ -25,7 +25,7 @@ namespace ECommerce.Services
         /// <param name="quantity">Shopping cart item quantity</param>
         /// <returns>Final price</returns>
         decimal GetFinalPrice(Product product,
-            Customer customer,
+            Data.Entities.Customers.Customer customer,
             decimal additionalCharge = decimal.Zero,
             bool includeDiscounts = true,
             int quantity = 1);
@@ -164,7 +164,7 @@ namespace ECommerce.Services
         /// <param name="customer">Customer</param>
         /// <param name="productPrice">Product price (null for using the base product price)</param>
         /// <returns>Price adjustment</returns>
-        decimal GetProductAttributeValuePriceAdjustment(ProductAttributeValue value, Customer customer, decimal? productPrice = null);
+        decimal GetProductAttributeValuePriceAdjustment(ProductAttributeValue value, Data.Entities.Customers.Customer customer, decimal? productPrice = null);
 
         /// <summary>
         /// Round a product or order total for the currency

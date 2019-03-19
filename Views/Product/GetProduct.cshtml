@@ -1,4 +1,5 @@
-﻿@model ECommerce.Data.Entities.Catalog.Product
+﻿@using ECommerce.Data.Entities.Catalog
+@model ECommerce.Data.Entities.Catalog.Product
 @{
     ViewBag.Title = "GetProduct";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +9,55 @@
 
 @Model.ToString()
 
-@Model.ProductCategories.Any()
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table class="table table-condensed table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>
+                        Product Name
+                    </th>
+                    <th>
+                        Introduction Date
+                    </th>
+                    <th>
+                        Cost
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @*@foreach (Product item in Model.)
+                {
+                    <tr>
+                        <td>
+                            @item.ProductName
+                        </td>
+                        <td>
+                            @item.IntroductionDate.ToShortDateString()
+                        </td>
+                        <td>
+                            @item.Cost.ToString("c")
+                        </td>
+                        <td>
+                            @item.Price.ToString("c")
+                        </td>
+                    </tr>
+                }*@
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+@*@Model.ProductCategories.Any()
 @Model.ProductManufacturers.Any()
 @Model.ProductReviews.Any()
 @Model.ProductProductTagMappings.Any()
@@ -17,12 +66,12 @@
 @Model.ProductSpecificationAttributes.Any()
 @Model.ProductWarehouseInventory.Any()
 @Model.ProductPictures.Any()
-@Model.TierPrices.Any()
+@Model.TierPrices.Any()*@
 
 
 
 
-<br />
+@*<br />
 @foreach (var item in Model.ProductCategories)
 {
     @item.ToString()
@@ -69,7 +118,7 @@
 @foreach (var item in Model.TierPrices)
 {
     @item
-}
+}*@
 
 
 

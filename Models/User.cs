@@ -17,6 +17,7 @@ namespace ECommerce.Models
         public string SecurityStamp { get; set; }
         public bool Verified { get; set; }
         public DateTime UtcDateExpire { get; set; }
+        public int CustomerId { get; set; }
         string IUser.Id
         {
             get { return UserId.ToString(); }

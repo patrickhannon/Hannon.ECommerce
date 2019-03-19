@@ -6,13 +6,17 @@ using System.Web;
 using ECommerce.Data.Core.Data;
 using ECommerce.Data.Entities;
 using ECommerce.Data.Entities.Catalog;
+using ECommerce.Data.Entities.Customers;
 using ECommerce.Data.Entities.Discounts;
 using ECommerce.Data.Entities.Media;
+using ECommerce.Data.Entities.Orders;
 using ECommerce.Data.Entities.Shipping;
 using ECommerce.Data.Repository;
 using ECommerce.Services;
 using ECommerce.Services.Catalog;
 using ECommerce.Services.Catalog.Impl;
+using ECommerce.Services.Customer;
+using ECommerce.Services.Customer.Impl;
 using ECommerce.Services.Impl;
 using ECommerce.Services.Menu;
 using ECommerce.Services.Menu.Impl;
@@ -85,7 +89,8 @@ namespace ECommerce.App_Start
             kernel.Bind<IProductService>().To<ProductService>();
             kernel.Bind<ICategoryService>().To<CategoryService>();
             kernel.Bind<IMenuService>().To<MenuService>();
-
+            kernel.Bind<ICartService>().To<CartService>();
+            kernel.Bind<ICustomerService>().To<CustomerService>();
         }
         /// <summary>
         /// Load your modules or register your services here!
@@ -150,6 +155,15 @@ namespace ECommerce.App_Start
                 WithConstructorArgument("connectionString", _connectionString);
 
             kernel.Bind<IRepository<ProductWarehouseInventory>>().To<ProductWarehouseInventoryRepository>().
+                WithConstructorArgument("connectionString", _connectionString);
+
+            kernel.Bind<IRepository<ShoppingCartItem>>().To<ShoppingCartItemRepository>().
+                WithConstructorArgument("connectionString", _connectionString);
+
+            kernel.Bind<ICustomerRepository>().To<ShoppingCartItemRepository>().
+                WithConstructorArgument("connectionString", _connectionString);
+
+            kernel.Bind<IRepository<Customer>>().To<CustomerRepository>().
                 WithConstructorArgument("connectionString", _connectionString);
         }
     }

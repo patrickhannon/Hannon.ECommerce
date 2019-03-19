@@ -17,7 +17,7 @@ namespace ECommerce.Services.Impl
 {
     public class CategoryService : ICategoryService
     {
-            #region Fields
+        #region Fields
             private readonly CatalogSettings _catalogSettings;
             private readonly CommonSettings _commonSettings;
             private readonly IRepository<Category> _categoryRepository;
@@ -56,10 +56,11 @@ namespace ECommerce.Services.Impl
         /// <returns>Categories</returns>
         public virtual IList<Category> GetAllCategories(int storeId = 0, bool showHidden = false, bool loadCacheableCopy = true)
         {
-            //IList<Category> _categoryRepository.GetAllCategories(string.Empty, storeId, showHidden: showHidden);
-            //todo
             IList<Category> categories = _categoryRepository.Get();
-            //categories = LoadCategoriesFunc();
+            foreach (var c in categories)
+            {
+                
+            }
             return categories;
         }
 
