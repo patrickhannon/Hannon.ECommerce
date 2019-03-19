@@ -72,6 +72,11 @@ namespace ECommerce.Controllers
             return View();
         }
 
+        public virtual ActionResult Following()
+        {
+            return View();
+        }
+
 
         //public virtual ActionResult Search(SearchModel model, CatalogPagingFilteringModel command)
         //{

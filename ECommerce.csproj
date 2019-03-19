@@ -379,6 +379,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\daterangepicker.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\pdsa-panel-additions.css" />
+    <Content Include="Content\pdsa-readme-box.css" />
+    <Content Include="Content\pdsa-summary-block.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -519,6 +523,7 @@
     <Content Include="Views\Shared\_GetCategoryMenu.cshtml" />
     <Content Include="Views\Catalog\Search.cshtml" />
     <Content Include="Views\Product\GetProduct.cshtml" />
+    <Content Include="Views\Catalog\Following.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

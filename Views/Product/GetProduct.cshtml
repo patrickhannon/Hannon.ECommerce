@@ -19,10 +19,13 @@
 @Model.ProductPictures.Any()
 @Model.TierPrices.Any()
 
+
+
+
 <br />
 @foreach (var item in Model.ProductCategories)
 {
-    @item
+    @item.ToString()
 }
 <br />
 @foreach (var item in Model.ProductManufacturers)

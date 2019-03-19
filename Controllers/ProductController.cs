@@ -32,5 +32,7 @@ namespace ECommerce.Controllers
             var product = _productService.GetProductById(id);
             return View(product);
         }
+
+
     }
 }

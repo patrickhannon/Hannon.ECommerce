@@ -1,0 +1,94 @@
+﻿@*Will be used to show summaries of catalog*@
+@{
+    ViewBag.Title = "SummaryBlock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- PDSA Summary Blocks Styles -->
+<link href="../Content/pdsa-summary-block.css" media="all" rel="stylesheet" type="text/css">
+
+<div class="row">
+    <div class="col-xs-12 col-md-3">
+        <div class="pdsa-summary-block pdsa-summary-block-primary">
+            <div class="summary-background">
+                <i class="glyphicon glyphicon-heart"></i>
+            </div>
+            <div class="summary-body">
+                <div class="summary-line1">
+                    23
+                </div>
+                <div class="summary-line2">
+                    Potential Duplicate Matches
+                </div>
+            </div>
+            <div class="summary-footer">
+                <a href="#">
+                    Process Duplicates
+                    <i class="glyphicon glyphicon-chevron-right pull-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-3">
+        <div class="pdsa-summary-block pdsa-summary-block-success">
+            <div class="summary-background">
+                <i class="glyphicon glyphicon-bell"></i>
+            </div>
+            <div class="summary-body">
+                <div class="summary-line1">
+                    14
+                </div>
+                <div class="summary-line2">
+                    Other Matches
+                </div>
+            </div>
+            <div class="summary-footer">
+                <a href="#">
+                    View Matches
+                    <i class="glyphicon glyphicon-chevron-right pull-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-3">
+        <div class="pdsa-summary-block pdsa-summary-block-info">
+            <div class="summary-background">
+                <i class="glyphicon glyphicon-leaf"></i>
+            </div>
+            <div class="summary-body">
+                <div class="summary-line1">
+                    32
+                </div>
+                <div class="summary-line2">
+                    Online Registrations
+                </div>
+            </div>
+            <div class="summary-footer">
+                <a href="#">
+                    See Registrations<i class="glyphicon glyphicon-chevron-right pull-right">
+                    </i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-3">
+        <div class="pdsa-summary-block pdsa-summary-block-danger">
+            <div class="summary-background">
+                <i class="glyphicon glyphicon-music"></i>
+            </div>
+            <div class="summary-body">
+                <div class="summary-line1">
+                    2
+                </div>
+                <div class="summary-line2">
+                    Messages with Errors
+                </div>
+            </div>
+            <div class="summary-footer">
+                <a href="#">
+                    View Errors<i class="glyphicon glyphicon-chevron-right pull-right">
+                    </i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
