@@ -35,6 +35,8 @@ namespace ECommerce.Services.Catalog.Impl
         private readonly IRepository<DiscountProductMapping> _discountProductMappingRepository;
         private readonly IRepository<ProductWarehouseInventory> _productWarehouseInventoryRepository;
 
+        
+
         public ProductService(
             IRepository<PictureBinary> pictureBinaryRepository,
             IRepository<Picture> pictureRepository,
