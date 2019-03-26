@@ -9,5 +9,6 @@ namespace ECommerce.Services.Catalog
     public interface IProductService
     {
         Product GetProductById(int productId);
+
     }
 }

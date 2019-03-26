@@ -37,7 +37,7 @@ namespace ECommerce.Services.Menu.Impl
             return new Models.HanMenu()
             {
                 MenuItems = collection.Where(x => x.ParentCategoryId == 0).ToList()
-        };
+            };
         }
 
         private IList<HanMenuItem> AssociateMenuWithSubMenu(HanMenuItem item, 
@@ -77,7 +77,7 @@ namespace ECommerce.Services.Menu.Impl
                 {
                     MenuId = category.Id,
                     DisplayOrder = order,
-                    MenuAction = "/Catalog/Category",
+                    MenuAction = "/Catalog/Search/"+ category.ParentCategoryId,
                     MenuTitle = category.Name,
                     ParentCategoryId = category.ParentCategoryId
                 });

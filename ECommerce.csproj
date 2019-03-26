@@ -484,7 +484,9 @@
     <Compile Include="Services\Catalog\Impl\CartService.cs" />
     <Compile Include="Services\Catalog\ICategoryService.cs" />
     <Compile Include="Services\Catalog\Impl\CategoryService.cs" />
+    <Compile Include="Services\Catalog\Impl\PictureService.cs" />
     <Compile Include="Services\Catalog\Impl\ProductService.cs" />
+    <Compile Include="Services\Catalog\IPictureService.cs" />
     <Compile Include="Services\Catalog\IProductService.cs" />
     <Compile Include="Services\Customer\ICustomerService.cs" />
     <Compile Include="Services\Customer\Impl\CustomerService.cs" />
@@ -541,6 +543,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\images\thumbs\" />
     <Folder Include="Services\Discounts\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>

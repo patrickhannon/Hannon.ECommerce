@@ -90,7 +90,7 @@ namespace ECommerce.Services.Catalog.Impl
             var productPictures = _productPictureRepository.GetByProductId(productId);
             var productReviews = _productReviewsRepository.GetByProductId(productId);
             var productSpecificationAttributes =
-                _productSpecificationAttributeMappingRepository.GetByProductId(productId);
+               _productSpecificationAttributeMappingRepository.GetByProductId(productId);
 
             var productProductTagMappings = _productProductTagMappingRepository.GetByProductId(productId);
             //todo var productAttributeMappings = _productAttributeRepository.GetByProductId(productId);
@@ -113,5 +113,8 @@ namespace ECommerce.Services.Catalog.Impl
 
             return product;
         }
+
+
+
     }
 }

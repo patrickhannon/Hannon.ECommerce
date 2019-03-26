@@ -50,6 +50,23 @@ namespace ECommerce.Controllers
             return View();
         }
 
+        public virtual ActionResult Search(int parentCategoryId) //, CatalogPagingFilteringModel command)
+        {
+            var category = _categoryService.GetAllCategoriesByParentCategoryId(parentCategoryId);
+
+            //if (category == null || category.Deleted)
+            //    return InvokeHttp404();
+
+            //model
+            //var model = _catalogModelFactory.PrepareCategoryModel(category, command);
+
+            //template
+            //var templateViewPath = _catalogModelFactory.PrepareCategoryTemplateViewPath(category.CategoryTemplateId);
+            //return View(templateViewPath, model);
+            return View();
+        }
+
+
         [AllowAnonymous]
         public ActionResult _GetCategoryMenu()
         {

@@ -151,6 +151,9 @@ namespace ECommerce.App_Start
             kernel.Bind<IRepository<TierPrice>>().To<TierPricesRepository>().
                 WithConstructorArgument("connectionString", _connectionString);
 
+            kernel.Bind<ISearchRepository>().To<ProductRepository>().
+                WithConstructorArgument("connectionString", _connectionString);
+
             kernel.Bind<IRepository<DiscountProductMapping>>().To<DiscountProductMappingRepository>().
                 WithConstructorArgument("connectionString", _connectionString);
 
